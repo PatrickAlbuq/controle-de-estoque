@@ -1,27 +1,31 @@
 import models from "../../db/models"
+import _ from "lodash"
 
 const getAllProductInfo = async (req, res) => {
-    const { id } = req.body;
+    try {
+        await models.sequelize.transaction(async (transaction) => {
+            const data = await models.Products.findAll({
+                where: {
+                    deletedAt: null
+                }
+            },{
+                transaction,
+            })
 
-    await models.sequelize.transaction(async (transaction) => {
-        await models.Products.findAll({
-            where: {
-                deletedAt: null
-            }
-        },{
-            transaction,
-        }).then((data) => {
+            if (_.isNil(data)) throw new Error("Houve um erro ao buscar seus produtos.")
+            if (data.length < 1) throw new Error("Não há nenhum produto na sua lista.")
+
             return res.status(200).json({
-                message: "Produto localizado!",
+                message: "Produtos localizado!",
                 data
             })
-        }).catch((err) => {
-            return res.status(500).json({
-                message: "Ouve um erro ao buscar os dados do produto.",
-                err
-            })
-        })
     })
+    } catch (err) {
+        return res.status(500).json({
+            message: "Houve um erro ao buscar os dados dos produtos.",
+            error: err.message
+        })
+    }
 }
 
 export default getAllProductInfo;
