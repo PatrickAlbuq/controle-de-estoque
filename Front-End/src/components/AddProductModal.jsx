@@ -1,21 +1,14 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import addProduct from '../api/addProduct'
 
 
 export default function Modal({ isOpen, setModalOpen }) {
   const { handleSubmit, register, reset } = useForm()
 
   const handdleSubmitData = async (data) => {
-    console.log(data)
     try {
-      await fetch('http://localhost:3000/create-product', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
+      await addProduct(data)
 
       setModalOpen()
     } catch (error) {

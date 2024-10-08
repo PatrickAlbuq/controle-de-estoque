@@ -30,7 +30,6 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  /* place-items: center; // alinhamento horizontal*/
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
