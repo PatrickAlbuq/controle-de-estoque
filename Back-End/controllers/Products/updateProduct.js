@@ -1,13 +1,13 @@
 import models from '../../db/models';
 
 const updateProduct = async (req, res) => {
-    const { id, name, description, quantity } = req.body;
+    const { id, code, name, description } = req.body;
 
     await models.sequelize.transaction(async (transaction) => {
         await models.Products.update({
+            code,
             name,
             description,
-            quantity,
         }, {
             where: {
                 id,

@@ -3,7 +3,8 @@ import getAllProductsInfo from "./getAllProductsInfo";
 import addNewProduct from "./addNewProduct";
 import updateProduct from "./updateProduct";
 import deleteProduct from "./deleteProduct";
-// import changeProductQuantity from "./changeProductQuantity"; TO:DO
+import addProductQuantity from "./addProductQuantity"
+import removeProductQuantity from "./removeProductQuantity";
 
 export default {
     getProductInfo,
@@ -11,5 +12,6 @@ export default {
     addNewProduct,
     updateProduct,
     deleteProduct,
-    // changeProductQuantity, TO:DO
+    addProductQuantity,
+    removeProductQuantity,
 }

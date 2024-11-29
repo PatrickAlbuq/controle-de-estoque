@@ -1,33 +1,27 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Product extends Model {
+  class ProductEntry extends Model {
     static associate(models) {
       // define association here
-      Product.hasMany(models.ProductEntry, {
-        foreignKey: 'productId',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      });
-
-      Product.hasMany(models.ProductRemoval, {
+      ProductEntry.belongsTo(models.Product, {
         foreignKey: 'productId',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       });
     }
   }
-  Product.init({
-    code: {
-      type: DataTypes.STRING,
-      allowNull: false
+  ProductEntry.init({
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'products',
+        key: 'id'
+      }
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING,
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     createdAt: {
@@ -46,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Product',
-    tableName: 'products'
+    modelName: 'ProductEntry',
+    tableName: 'product_entries'
   });
-  return Product;
+  return ProductEntry;
 };

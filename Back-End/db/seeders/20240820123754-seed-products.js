@@ -7,7 +7,6 @@ module.exports = {
         code: '487126349871263',
         name: 'Bolacha Água e Sal',
         description: 'Bolacha Água e Sal 120g Dalbuco',
-        quantity: 20,
       },
     ]);
   },
