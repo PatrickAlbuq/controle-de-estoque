@@ -1,0 +1,40 @@
+/* src/components/AlertNotification/AlertNotification.css */
+
+.notification {
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+
+.notification.success {
+    background-color: #28a745;
+    /* Verde */
+}
+
+.notification.error {
+    background-color: #dc3545;
+    /* Vermelho */
+}
+
+.notification .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.notification .closebtn:hover {
+    color: black;
+}

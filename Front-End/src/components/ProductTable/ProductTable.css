@@ -1,0 +1,72 @@
+/* src/components/ProductTable/ProductTable.css */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+    min-width: 100px;
+    /* Garantir tamanho mínimo igual */
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    background-color: #004085;
+    transform: scale(0.95);
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.delete-button:active {
+    background-color: #bd2130;
+}
