@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import EditProductForm from '../EditProductForm/EditProductForm';
 import AlertNotification from '../AlertNotification/AlertNotification';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import './ProductTable.css';
 
-const ProductTable = ({ products, fetchProducts }) => {
+const ProductTable = ({ products, fetchProducts, onProductRemove }) => {
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
-    const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
     const [currentProduct, setCurrentProduct] = useState(null);
     const [notification, setNotification] = useState({ message: '', type: '' });
+    const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
+    const [productIdToRemove, setProductIdToRemove] = useState(null);
 
     useEffect(() => {
         fetchProducts();
@@ -24,41 +24,39 @@ const ProductTable = ({ products, fetchProducts }) => {
         setEditModalIsOpen(false);
     };
 
-    const openConfirmModal = (product) => {
-        setCurrentProduct(product);
-        setConfirmModalIsOpen(true);
-    };
-
-    const closeConfirmModal = () => {
-        setConfirmModalIsOpen(false);
-    };
-
     const handleUpdate = (updatedProduct) => {
         fetchProducts();
         setNotification({ message: 'Produto atualizado com sucesso!', type: 'success' });
-    };
-
-    const handleDelete = () => {
-        axios.delete(`http://localhost:3001/delete-product`, { data: { id: currentProduct.id } })
-            .then(response => {
-                fetchProducts();
-                setNotification({ message: 'Produto deletado com sucesso!', type: 'success' });
-                closeConfirmModal();
-            })
-            .catch(error => {
-                setNotification({ message: 'Erro ao deletar o produto', type: 'error' });
-                console.error('Erro ao deletar o produto:', error);
-            });
     };
 
     const closeNotification = () => {
         setNotification({ message: '', type: '' });
     };
 
+    const openConfirmModal = (productId) => {
+        setProductIdToRemove(productId);
+        setConfirmModalIsOpen(true);
+    };
+
+    const closeConfirmModal = () => {
+        setConfirmModalIsOpen(false);
+        setProductIdToRemove(null);
+    };
+
+    const handleConfirmRemoval = () => {
+        onProductRemove(productIdToRemove);
+        closeConfirmModal();
+    };
+
     return (
         <div>
             <AlertNotification message={notification.message} type={notification.type} onClose={closeNotification} />
-            <h2>Controle de Estoque</h2>
+            <ConfirmModal
+                isOpen={confirmModalIsOpen}
+                onRequestClose={closeConfirmModal}
+                onConfirm={handleConfirmRemoval}
+                message="Tem certeza de que deseja remover este produto?"
+            />
             <table>
                 <thead>
                     <tr>
@@ -81,8 +79,8 @@ const ProductTable = ({ products, fetchProducts }) => {
                             <td>{new Date(product.createdAt).toLocaleString()}</td>
                             <td>{new Date(product.updatedAt).toLocaleString()}</td>
                             <td>
-                                <button onClick={() => openEditModal(product)}>Editar</button>
-                                <button onClick={() => openConfirmModal(product)} className="delete-button">Deletar</button>
+                                <button className="edit-button" onClick={() => openEditModal(product)}>Editar</button>
+                                <button className="remove-button" onClick={() => openConfirmModal(product.id)}>Remover</button>
                             </td>
                         </tr>
                     ))}
@@ -94,14 +92,6 @@ const ProductTable = ({ products, fetchProducts }) => {
                     isOpen={editModalIsOpen}
                     onClose={closeEditModal}
                     onUpdate={handleUpdate}
-                />
-            )}
-            {currentProduct && (
-                <ConfirmModal
-                    isOpen={confirmModalIsOpen}
-                    onRequestClose={closeConfirmModal}
-                    onConfirm={handleDelete}
-                    message={`Você tem certeza que deseja deletar o produto ${currentProduct.name}?`}
                 />
             )}
         </div>

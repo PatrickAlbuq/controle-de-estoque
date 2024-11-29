@@ -4,13 +4,18 @@ import './ConfirmModal.css';
 
 const ConfirmModal = ({ isOpen, onRequestClose, onConfirm, message }) => {
     return (
-        <Modal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Confirmar Ação">
-            <div className="modal">
-                <h2 className="modal-title">Confirmar Ação</h2>
-                <p className="modal-message">{message}</p>
-                <div className="modal-buttons">
-                    <button className="modal-button confirm" onClick={onConfirm}>Confirmar</button>
-                    <button className="modal-button cancel" onClick={onRequestClose}>Cancelar</button>
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            contentLabel="Confirmação"
+            className="confirm-modal"
+            overlayClassName="confirm-modal-overlay"
+        >
+            <div className="confirm-modal-content">
+                <p>{message}</p>
+                <div className="confirm-modal-buttons">
+                    <button onClick={onConfirm} className="confirm-button">Confirmar</button>
+                    <button onClick={onRequestClose} className="cancel-button">Cancelar</button>
                 </div>
             </div>
         </Modal>
