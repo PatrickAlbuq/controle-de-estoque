@@ -4,7 +4,7 @@ const deleteProduct = async (req, res) => {
     const { id } = req.body;
 
     await models.sequelize.transaction(async (transaction) => {
-        await models.Products.destroy({
+        await models.Product.destroy({
             where: {
                 id,
             },

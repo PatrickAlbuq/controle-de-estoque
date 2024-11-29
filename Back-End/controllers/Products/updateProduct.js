@@ -4,7 +4,7 @@ const updateProduct = async (req, res) => {
     const { id, code, name, description } = req.body;
 
     await models.sequelize.transaction(async (transaction) => {
-        await models.Products.update({
+        await models.Product.update({
             code,
             name,
             description,

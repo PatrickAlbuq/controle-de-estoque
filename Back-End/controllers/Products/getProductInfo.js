@@ -9,7 +9,7 @@ const getProductInfo = async (req, res) => {
         if (_.isNil(id)) throw new Error("É necessário um ID de produto")
 
         await models.sequelize.transaction(async (transaction) => {
-            const data = await models.Products.findOne({
+            const data = await models.Product.findOne({
                 where: {
                     id: id,
                     deletedAt: null
