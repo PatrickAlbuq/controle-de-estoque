@@ -64,8 +64,8 @@ const ProductTable = ({ products, fetchProducts, onProductRemove }) => {
                         <th>Nome</th>
                         <th>Descrição</th>
                         <th>Quantidade</th>
-                        <th>Primeira Entrada</th>
-                        <th>Última Entrada</th>
+                        <th>Data de Criação</th>
+                        <th>Última Atualização</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
